@@ -18,7 +18,7 @@ PROJECTS = [
         "tags": ["NLP", "Scikit-Learn", "Data Analysis"]
     },
     {
-        "title": "Customer Segmentation",
+        "title": "Customer Segmentation Algorithm",
         "description": "K-Means clustering algorithm to segment customers based on annual income and spending scores for targeted marketing.",
         "link": "https://github.com/anirudhkowluri/customer-segmentation-algorithm",
         "tags": ["Unsupervised Learning", "K-Means", "Clustering"]

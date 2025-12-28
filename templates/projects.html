@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section style="padding-top: 2rem;">
-    <h1>Featured Projects</h1>
-    <p style="color: #94a3b8; max-width: 600px;">
-        A selection of my recent work in Machine Learning, NLP, and Data Analysis.
+<section style="padding-top: 2rem;" id="projects">
+    <h1><span style="color: var(--accent-color)">/</span> Projects</h1>
+    <p style="color: #94a3b8; max-width: 600px; margin-bottom: 3rem;">
+        Explore my latest work across different domains of AI.
     </p>
+
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="NLP">NLP</button>
+        <button class="filter-btn" data-filter="Machine Learning">Machine Learning</button>
+        <button class="filter-btn" data-filter="Unsupervised Learning">Clustering</button>
+    </div>
 
     <div class="projects-grid">
         {% for project in projects %}
-        <div class="project-card">
+        <div class="project-card" data-tags="{{ project.tags|join(' ') }}">
             <div>
                 <h3 class="project-title">{{ project.title }}</h3>
                 <div class="project-tags">
@@ -19,8 +26,9 @@
                 </div>
                 <p class="project-desc">{{ project.description }}</p>
             </div>
-            <a href="{{ project.link }}" target="_blank" class="project-link">View on GitHub <i
-                    class="fas fa-external-link-alt" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+            <a href="{{ project.link }}" target="_blank" class="project-link">
+                View Repository <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
         {% endfor %}
     </div>
