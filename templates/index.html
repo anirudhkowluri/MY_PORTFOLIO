@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <p class="subtitle">Hello, I'm</p>
+    <h1>Anirudh Rao</h1>
+    <h2>Machine Learning Engineer</h2>
+    <p class="bio">
+        A Machine Learning and Deep Learning enthusiast with hands-on experience in developing robust ML models.
+        I possess strong leadership qualities and communication skills, committed to driving data-driven decision-making
+        for organizational growth. Always seeking opportunities to contribute to forward-thinking companies.
+    </p>
+
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('projects') }}" class="btn-primary" style="margin-right: 1rem;">View My Work</a>
+        <a href="https://www.linkedin.com/in/anirudh-rao-142b2331a/" target="_blank"
+            style="color: #cbd5e1; font-weight: 600;">Contact Me <i class="fas fa-arrow-right"
+                style="font-size: 0.8rem;"></i></a>
+    </div>
+</section>
+
+<section class="skills-section">
+    <h3>Tech Stack & Skills</h3>
+    <div class="skills-grid">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Machine Learning</span>
+        <span class="skill-tag">Deep Learning</span>
+        <span class="skill-tag">NLP</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">Streamlit</span>
+        <span class="skill-tag">HTML/CSS/JS</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Git</span>
+    </div>
+</section>
+{% endblock %}

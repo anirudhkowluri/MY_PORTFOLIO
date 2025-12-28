@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section style="padding-top: 2rem;">
+    <h1>Featured Projects</h1>
+    <p style="color: #94a3b8; max-width: 600px;">
+        A selection of my recent work in Machine Learning, NLP, and Data Analysis.
+    </p>
+
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            <div>
+                <h3 class="project-title">{{ project.title }}</h3>
+                <div class="project-tags">
+                    {% for tag in project.tags %}
+                    <span class="tag-sm">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                <p class="project-desc">{{ project.description }}</p>
+            </div>
+            <a href="{{ project.link }}" target="_blank" class="project-link">View on GitHub <i
+                    class="fas fa-external-link-alt" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
