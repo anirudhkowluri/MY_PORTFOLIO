@@ -309,3 +309,34 @@ h1.big {
         background-color: #e6a730;
     }
 }
+
+/* Custom Icon Styling for Footer */
+.ftco-footer-social li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Ensure the background circle from style.css remains */
+}
+
+.custom-icon-img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    object-fit: contain;
+
+    /* 
+       Filter to convert black/colored pixels to #ffbd39 (Yellow).
+       Logic: brightness(0) makes it black. invert(1) makes it white.
+       Then sepia/saturate/hue-rotate shifts it to gold.
+    */
+    filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(-50deg);
+}
+
+/* 
+   Fine-tuned filter for #ffbd39:
+   invert(90%) sepia(19%) saturate(6833%) hue-rotate(323deg) brightness(101%) contrast(101%)
+   Let's use a simpler approximation that guarantees visibility first.
+*/
+.custom-icon-img.yellow-filter {
+    filter: invert(86%) sepia(28%) saturate(1067%) hue-rotate(338deg) brightness(103%) contrast(106%);
+}
