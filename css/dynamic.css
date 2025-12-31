@@ -1,0 +1,259 @@
+/* Dynamic Enhancements */
+
+/* 1. Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffbd39;
+    /* Use the theme accent color */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e6a730;
+}
+
+/* 2. Smooth Scrolling for whole page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 3. Hero Section Animation (Animated Gradient) */
+/* Replacing or overlaying the hero background */
+
+.hero-animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a1a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    opacity: 0.9;
+}
+
+/* Ensure background shows through */
+#home-section,
+.hero,
+.slider-item {
+    background: transparent !important;
+}
+
+.home-slider {
+    background: transparent !important;
+    z-index: 5;
+    /* Ensure content is above particles */
+    position: relative;
+}
+
+
+/* Adjust overlay if needed */
+.slider-item .overlay {
+    background: rgba(0, 0, 0, 0.2);
+    /* Make it lighter if it was solid */
+}
+
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Floating animation for the hero image */
+.one-third.img,
+.img-about img {
+    animation: floatImage 6s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* 4. Glassmorphism Navbar */
+.ftco_navbar.scrolled {
+    background: rgba(0, 0, 0, 0.8) !important;
+    /* Darker background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. Project Cards - Hover Effects & Glassmorphism */
+.blog-entry {
+    transition: all 0.4s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    /* Optional: Glass effect on cards if they have backgrounds */
+    /* background: rgba(255, 255, 255, 0.05); */
+    /* backdrop-filter: blur(5px); */
+}
+
+.blog-entry:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.blog-entry .text {
+    transition: all 0.4s ease;
+}
+
+.blog-entry:hover .text {
+    background: rgba(255, 255, 255, 1);
+    /* Ensure readability on hover */
+    /* If dark mode: background: rgba(0, 0, 0, 0.8); */
+}
+
+/* Zoom effect enhancement */
+.zoom-effect {
+    overflow: hidden;
+    display: block;
+}
+
+.zoom-effect:hover {
+    transform: scale(1.05);
+    /* Slightly less aggressive than 1.1 */
+}
+
+/* 6. Button Glow Effects */
+.btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 189, 57, 0.4);
+    /* Glow matching accent */
+}
+
+.btn-primary {
+    background-size: 200% auto;
+    transition: 0.5s;
+}
+
+.btn-primary:hover {
+    background-position: right center;
+    /* Color shift if gradient */
+}
+
+/* 7. Custom Cursor Styles */
+.cursor-dot,
+.cursor-dot-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ffbd39;
+}
+
+.cursor-dot-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 189, 57, 0.5);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+/* Cursor Hover State */
+body.hovering .cursor-dot-outline {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 189, 57, 0.1);
+    border-color: #ffbd39;
+}
+
+/* 8. Text Selection Color */
+::selection {
+    background: #ffbd39;
+    color: #fff;
+}
+
+/* 9. Skill Progress Bars Animation Enhancement */
+.progress-bar {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: linear-gradient(-45deg,
+            rgba(255, 255, 255, 0.2) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.2) 75%,
+            transparent 75%,
+            transparent);
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+/* 10. Heading underlines */
+.subheading {
+    position: relative;
+    display: inline-block;
+}
+
+h1.big-2,
+h1.big {
+    opacity: 0.1;
+    /* Make the big background text subtle */
+}
