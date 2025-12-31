@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if device has a fine pointer (mouse)
+    // If it's a touch device (course pointer) or small screen, don't init cursor
+    if (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 992) {
+        return;
+    }
+
     // Create cursor elements
     const cursorDot = document.createElement('div');
     cursorDot.classList.add('cursor-dot');
@@ -17,8 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cursorDot.style.left = `${posX}px`;
         cursorDot.style.top = `${posY}px`;
 
-        // Outline follows with slight delay (using simple animation for smoothness or just direct for now)
-        // For smoother trail, we can use requestAnimationFrame, but simplistic approach first:
+        // Outline follows with slight delay
         cursorOutline.animate({
             left: `${posX}px`,
             top: `${posY}px`

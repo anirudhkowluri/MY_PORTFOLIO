@@ -257,3 +257,55 @@ h1.big {
     opacity: 0.1;
     /* Make the big background text subtle */
 }
+
+/* Mobile Optimizations */
+@media (max-width: 991px) {
+
+    /* Hide custom cursor on mobile/tablet */
+    .cursor-dot,
+    .cursor-dot-outline {
+        display: none !important;
+    }
+
+    /* Allow native cursor */
+    * {
+        cursor: auto !important;
+    }
+
+    /* Adjust animations for performance/battery */
+    .hero-animated-bg {
+        animation: gradientBG 25s ease infinite;
+        /* Slower animation on mobile */
+    }
+
+    /* Disable some large float animations if they cause layout shifts */
+    .one-third.img,
+    .img-about img {
+        animation: floatImage 8s ease-in-out infinite;
+        /* Slower float */
+    }
+
+    /* Adjust particle canvas opacity if text is hard to read */
+    #particles-canvas {
+        opacity: 0.6;
+    }
+}
+
+/* Fix hover states on touch devices sticking */
+@media (hover: none) {
+    .blog-entry:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Add specific active states for touch feedback */
+    .btn:active {
+        transform: scale(0.98);
+        background-color: #e6a730;
+    }
+}

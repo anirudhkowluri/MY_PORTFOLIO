@@ -3,9 +3,10 @@ const ctx = canvas.getContext('2d');
 let particlesArray;
 
 // Configuration
-const numberOfParticles = 80;
-const connectionDistance = 120;
-const mouseRadius = 150;
+let numberOfParticles;
+const connectionDistanceBase = 120;
+let connectionDistance = connectionDistanceBase;
+const mouseRadiusBase = 150;
 
 // Set canvas to full screen/container
 const heroSection = document.querySelector('#home-section');
@@ -15,14 +16,21 @@ canvas.style.top = '0';
 canvas.style.left = '0';
 canvas.style.width = '100%';
 canvas.style.height = '100%';
-canvas.style.zIndex = '0'; // Behind content, above background
-canvas.style.pointerEvents = 'none'; // Let clicks pass through
+canvas.style.zIndex = '0';
+canvas.style.pointerEvents = 'none';
 heroSection.appendChild(canvas);
 
 // Sizing
 function setCanvasSize() {
     canvas.width = heroSection.offsetWidth;
     canvas.height = heroSection.offsetHeight;
+
+    // Adjust logic for mobile
+    if (canvas.width < 768) {
+        connectionDistance = 80; // Shorter connection distance on mobile
+    } else {
+        connectionDistance = connectionDistanceBase;
+    }
 }
 setCanvasSize();
 
@@ -38,6 +46,25 @@ window.addEventListener('mousemove', function (event) {
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
 });
+
+// Touch support
+window.addEventListener('touchmove', function (event) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = event.touches[0].clientX - rect.left;
+    mouse.y = event.touches[0].clientY - rect.top;
+}, { passive: true });
+
+window.addEventListener('touchstart', function (event) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = event.touches[0].clientX - rect.left;
+    mouse.y = event.touches[0].clientY - rect.top;
+}, { passive: true });
+
+window.addEventListener('touchend', function () {
+    mouse.x = undefined;
+    mouse.y = undefined;
+})
+
 
 window.addEventListener('resize', function () {
     setCanvasSize();
@@ -66,7 +93,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#ffbd39'; // Theme accent color
+        ctx.fillStyle = '#ffbd39';
         ctx.fill();
     }
 
@@ -86,7 +113,7 @@ class Particle {
         let distance = Math.sqrt(dx * dx + dy * dy);
 
         // Interactive repelling effect
-        if (distance < mouseRadius + this.size) {
+        if (distance < mouse.radius + this.size) {
             if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
                 this.x += 2;
             }
@@ -113,7 +140,14 @@ class Particle {
 // Create particle array
 function init() {
     particlesArray = [];
-    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+    // Reduce density on mobile for performance
+    let densityDivider = 9000;
+    if (canvas.width < 768) {
+        densityDivider = 15000; // Fewer particles on mobile
+    }
+
+    let numberOfParticles = (canvas.height * canvas.width) / densityDivider;
+
     for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 2) + 1;
         let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
@@ -133,10 +167,10 @@ function connect() {
         for (let b = a; b < particlesArray.length; b++) {
             let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
                 ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                opacityValue = 1 - (distance / 20000);
+            if (distance < (connectionDistance * connectionDistance)) {
+                opacityValue = 1 - (distance / (connectionDistance * connectionDistance)); // Updated calculation
                 // Draw line
-                ctx.strokeStyle = 'rgba(255, 189, 57,' + opacityValue * 0.2 + ')'; // Accent color with low opacity
+                ctx.strokeStyle = 'rgba(255, 189, 57,' + opacityValue * 0.2 + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -159,7 +193,6 @@ function animate() {
 }
 
 // Initialize on load
-// Wait for DOM
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         init();
