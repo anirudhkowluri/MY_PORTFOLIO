@@ -22,7 +22,15 @@
 /* 2. Smooth Scrolling for whole page */
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Prevent horizontal scrollbar */
 }
+
+body {
+    overflow-x: hidden;
+    /* Ensure no horizontal scrollbar */
+}
+
 
 /* 3. Hero Section Animation (Animated Gradient) */
 /* Replacing or overlaying the hero background */
